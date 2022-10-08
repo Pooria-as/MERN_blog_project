@@ -1,0 +1,4 @@
+{
+  "MongoDBurl": "mongodb://localhost:27017/MERN_PROJECT_DB",
+  "jwtSecret": "MySecretWebToken"
+}
