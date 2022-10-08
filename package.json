@@ -18,7 +18,9 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"nodemon server.js\" \"npm start --prefix client\""
   },
   "author": "pooria asiabi",
   "license": "ISC",
