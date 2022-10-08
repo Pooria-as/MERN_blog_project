@@ -58,11 +58,9 @@ module.exports = {
         },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          return res.json({ token });
         }
       );
-
-      // await res.status(200).send("success");
     } catch (error) {
       console.log(error);
     }

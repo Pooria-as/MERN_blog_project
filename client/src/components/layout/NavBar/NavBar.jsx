@@ -6,9 +6,9 @@ const NavBar = () => {
     <nav className="navbar bg-dark">
       <h1>
         <Link to="/">
-          <a>
+          
             <i className="fas fa-code"></i> DevConnector
-          </a>
+          
         </Link>
       </h1>
       <ul>

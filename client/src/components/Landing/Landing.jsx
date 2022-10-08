@@ -12,11 +12,11 @@ const Landing = () => {
             other developers
           </p>
           <div className="buttons">
-            <Link to="/singup">
-              <a className="btn btn-primary">Sign Up</a>
+            <Link to="/singup" className="btn btn-primary">
+              Sign Up
             </Link>
-            <Link to="/login">
-              <a className="btn btn-light">Login</a>
+            <Link to="/login" className="btn btn-light">
+              Login
             </Link>
           </div>
         </div>
