@@ -7,9 +7,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //Connect to Database
 connectToDatabase();
-app.get("/", (req, res) => {
-  res.json("this is test json");
-});
+// app.get("/", (req, res) => {
+//   res.json("this is test json");
+// });
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/auth", require("./routes/api/auth"));

@@ -15,7 +15,7 @@ module.exports = {
 
     const result = querySchema.validate(req.body);
     if (querySchema.validate(req.body).error) {
-      res.status(400).send(result.error);
+      res.status(400).send(result.error.details.message);
     }
 
     try {
@@ -58,7 +58,7 @@ module.exports = {
   },
   FindUserByToken: async (req, res) => {
     try {
-      const user = await User.find(req.user.id).select("-password");
+      const user = await User.findById(req.user.id).select("-password");
       res.json(user);
     } catch (error) {
       console.log(error.message);

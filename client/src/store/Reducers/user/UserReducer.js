@@ -1,6 +1,4 @@
-const initialState = {
-  users: ["132"],
-};
+const initialState = {};
 
 const UserReducer = (state = initialState, { type, payload }) => {
   switch (type) {

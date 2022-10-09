@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const config = require("config");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+// const { check, validationResult } = require("express-validator");
 
 module.exports = {
   CreateNewUser: async (req, res) => {
@@ -18,7 +19,7 @@ module.exports = {
 
     const result = querySchema.validate(req.body);
     if (querySchema.validate(req.body).error) {
-      res.status(400).send(result.error);
+      res.status(400).send(result.error.details[0].message);
     }
 
     try {
