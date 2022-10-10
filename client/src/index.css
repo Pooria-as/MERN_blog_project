@@ -195,6 +195,11 @@ img {
     color: #fff;
 }
 
+.dashboard_style{
+    margin-top: 7rem;
+    margin-left: 3rem;
+}
+
 .btn-danger,
 .bg-danger,
 .badge-danger,

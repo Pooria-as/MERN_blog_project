@@ -15,21 +15,21 @@ module.exports = {
 
     const result = querySchema.validate(req.body);
     if (querySchema.validate(req.body).error) {
-      res.status(400).send(result.error.details.message);
+      res.status(400).send(result.error.details[0].message);
     }
 
     try {
       //check user exist
       let user = await User.findOne({ email });
       if (!user) {
-        res.status(400).json({ msg: " User Not Found  !" });
+        return res.status(400).send(" User Not Found  !");
       }
 
       //COMPARE user password
       const IsMatchUser = await bcrypt.compare(password, user.password);
 
       if (!IsMatchUser) {
-        res.status(403).send({ mesg: "Your Password was wrong ! :)" });
+        return res.status(403).send("Your Password was wrong ! :)");
       }
 
       //create jwt (jsonwebtoken)
@@ -50,8 +50,6 @@ module.exports = {
           res.json({ token });
         }
       );
-
-      // await res.status(200).send("success");
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +57,7 @@ module.exports = {
   FindUserByToken: async (req, res) => {
     try {
       const user = await User.findById(req.user.id).select("-password");
-      res.json(user);
+      return res.json(user);
     } catch (error) {
       console.log(error.message);
       res.status(500).send("server error !");

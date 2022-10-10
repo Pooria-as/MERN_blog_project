@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 const Auth = (req, res, next) => {
-  //get token from header
+  //set token inside  header
   const token = req.header("x-auth-token");
   //check if !token
   if (!token) {

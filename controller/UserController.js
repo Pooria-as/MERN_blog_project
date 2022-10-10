@@ -26,7 +26,7 @@ module.exports = {
       //check user exist
       let user = await User.findOne({ email });
       if (user) {
-        res.status(400).json({ msg: "You had been registerd before !" });
+        res.status(400).send("You had been registerd before !");
       }
       const avatar = await gravatar.url(email);
       // get users avatar

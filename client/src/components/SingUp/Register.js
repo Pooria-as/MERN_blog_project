@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import { connect } from "react-redux";
 import { setAlert } from "../../store/actions/Alert";
 import { register } from "../../store/actions/Auth";
-import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
 
-const Register2 = ({ setAlert, register }) => {
-  let navigate = useNavigate();
-
+const Register2 = ({ setAlert, register, IsAuthenticate }) => {
   const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
     password: "",
     confirm_password: "",
   });
+
+  let navigrator = useNavigate();
 
   const { name, email, password, confirm_password } = registerData;
 
@@ -30,17 +28,12 @@ const Register2 = ({ setAlert, register }) => {
       password,
     };
     e.preventDefault();
-    if (password !== confirm_password) {
-      setAlert("Password doesn't match dude", "danger");
-    } else {
-      register(data);
-      navigate("/");
-      swal("Your registration was successfull !");
-      // window.location.reload();
-
-      console.log(localStorage.getItem("token"));
-    }
+    register(data);
   };
+
+  if (IsAuthenticate) {
+    navigrator("/dashboard");
+  }
 
   return (
     <section className="container">
@@ -99,4 +92,8 @@ const Register2 = ({ setAlert, register }) => {
   );
 };
 
-export default connect(null, { setAlert, register })(Register2);
+const mapStateToProps = (state) => ({
+  IsAuthenticate: state.auth.IsAuthenticate,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register2);

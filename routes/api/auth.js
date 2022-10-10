@@ -4,12 +4,9 @@ const { ApiAuth, FindUserByToken } = require("../../controller/AuthController");
 const router = express.Router();
 
 //@route /api/auth GET
-router.get("/", Auth, FindUserByToken);
-router.post("/", ApiAuth);
-
-//@route /api/auth POST
-
 //Authuntication for api Post
-
+router.get("/", Auth, FindUserByToken);
+//@route /api/auth POST
 router.post("/", ApiAuth);
+
 module.exports = router;
