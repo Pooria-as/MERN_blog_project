@@ -2,12 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../../store/actions/Auth";
+import { FaSignOutAlt } from "react-icons/fa";
+
 
 const NavBar = ({ logout, loading, IsAuthenticate }) => {
   const guest = (
     <ul>
       <li>
-        <Link to="/">Developers</Link>
+        <a href="/">Developers</a>
       </li>
       <li>
         <Link to="/singup">Register</Link>
@@ -21,13 +23,14 @@ const NavBar = ({ logout, loading, IsAuthenticate }) => {
   const auth = (
     <ul>
       <li>
-        <Link to="/"></Link>
+        <a href="/">Developers</a>
       </li>
       <li>
-        <Link to="/logout" onClick={logout}>
-          Logout
+        <Link onClick={logout} to="/login">
+          
+    <FaSignOutAlt/>
+          
         </Link>
-        
       </li>
     </ul>
   );
@@ -39,7 +42,7 @@ const NavBar = ({ logout, loading, IsAuthenticate }) => {
           <i className="fas fa-code"></i> DevConnector
         </Link>
       </h1>
-      {loading && !IsAuthenticate ? guest : auth}
+      {!loading && <>{IsAuthenticate ? auth : guest}</>}
     </nav>
   );
 };

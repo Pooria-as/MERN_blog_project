@@ -1,8 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setAlert } from "../../store/actions/Alert";
 import { login } from "../../store/actions/Auth";
 import Alert from "../Alert/Alert";
 const LogIn = ({ login, IsAuthenticate }) => {
@@ -11,8 +10,14 @@ const LogIn = ({ login, IsAuthenticate }) => {
     password: "",
   });
 
+  let navigate = useNavigate();
+  useEffect(() => {
+    if (IsAuthenticate) {
+      return navigate("/dashboard");
+    }
+  }, [IsAuthenticate]);
+
   const { email, password } = loginData;
-  let navigrator = useNavigate();
 
   const handlChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -21,17 +26,12 @@ const LogIn = ({ login, IsAuthenticate }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    const data = {
-      email,
-      password,
-    };
+      login(email, password);
+     
+      
 
-    login(data);
+   
   };
-
-  if (IsAuthenticate) {
-    navigrator("/dashboard");
-  }
 
   return (
     <section className="container">
@@ -40,7 +40,6 @@ const LogIn = ({ login, IsAuthenticate }) => {
         <i className="fas fa-user"></i> Sign into Your Account
       </p>
       <Alert />
-
       <form className="form" onSubmit={submitHandler}>
         <div className="form-group">
           <input
@@ -72,4 +71,4 @@ const mapStateToProps = (state) => ({
   IsAuthenticate: state.auth.IsAuthenticate,
 });
 
-export default connect(mapStateToProps, { setAlert, login })(LogIn);
+export default connect(mapStateToProps, { login })(LogIn);

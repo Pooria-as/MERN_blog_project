@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import NavBar from "./components/layout/NavBar/NavBar";
-import Dashboard from "./Page/Dashboard/Dashboard";
-import Home from "./Page/Home/Home";
-import SingIn from "./Page/SingIn/SingIn";
-import SingUp from "./Page/SingUp/SingUp";
-import Private from "./PrivateRoute/Private";
-import { userLoad } from "./store/actions/Auth";
-import setAuthToken from "./utilities/SetAuthToken";
+import NavBar from "../components/layout/NavBar/NavBar";
+import Dashboard from "../Page/Dashboard/Dashboard";
+import Home from "../Page/Home/Home";
+import SingIn from "../Page/SingIn/SingIn";
+import SingUp from "../Page/SingUp/SingUp";
+import { userLoad } from "../store/actions/Auth";
+import setAuthToken from "../utilities/SetAuthToken";
+import PrivateRoute from "./PrivateRoute";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const AppRoute = () => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userLoad());
@@ -28,12 +29,13 @@ const AppRoute = () => {
         <Route
           path="/dashboard"
           element={
-            <Private>
+            <PrivateRoute>
               <Dashboard />
-            </Private>
+            </PrivateRoute>
           }
         />
 
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         <Route path="/login" element={<SingIn />} />
         <Route path="/singup" element={<SingUp />} />
       </Routes>

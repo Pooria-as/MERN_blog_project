@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import { connect } from "react-redux";
 import { setAlert } from "../../store/actions/Alert";
 import { register } from "../../store/actions/Auth";
 
-const Register2 = ({ setAlert, register, IsAuthenticate }) => {
+const Register = ({ setAlert, register, IsAuthenticate }) => {
   const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
@@ -13,8 +13,12 @@ const Register2 = ({ setAlert, register, IsAuthenticate }) => {
     confirm_password: "",
   });
 
-  let navigrator = useNavigate();
-
+  let navigate = useNavigate();
+  useEffect(() => {
+    if (IsAuthenticate) {
+      return navigate("/dashboard");
+    }
+  }, [IsAuthenticate]);
   const { name, email, password, confirm_password } = registerData;
 
   const handlChange = (e) => {
@@ -22,18 +26,24 @@ const Register2 = ({ setAlert, register, IsAuthenticate }) => {
   };
 
   const submitHandler = (e) => {
-    const data = {
-      name,
-      email,
-      password,
-    };
     e.preventDefault();
-    register(data);
-  };
+    if (password !== confirm_password) {
+      setAlert("Password was equal to Confirm Password", "danger");
+    } else {
+      const data = {
+        name,
+        email,
+        password,
+      };
+      try {
+        register(data);
 
-  if (IsAuthenticate) {
-    navigrator("/dashboard");
-  }
+        // swal("Registration Was Successfull");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <section className="container">
@@ -96,4 +106,4 @@ const mapStateToProps = (state) => ({
   IsAuthenticate: state.auth.IsAuthenticate,
 });
 
-export default connect(mapStateToProps, { setAlert, register })(Register2);
+export default connect(mapStateToProps, { setAlert, register })(Register);

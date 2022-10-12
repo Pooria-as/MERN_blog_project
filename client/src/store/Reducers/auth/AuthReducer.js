@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   token: localStorage.getItem("token"),
-  IsAuthenticate: false,
+  IsAuthenticate: null,
   loading: true,
   user: null,
 };
@@ -40,9 +40,8 @@ const AuthReducer = (state = initialState, { type, payload }) => {
       localStorage.removeItem("token");
       return {
         ...state,
-        ...payload,
-        IsAuthenticate: false,
         token: null,
+        IsAuthenticate: false,
         loading: false,
       };
     default:
