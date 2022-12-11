@@ -2,6 +2,7 @@ import axios from "axios";
 import setAuthToken from "../../utilities/SetAuthToken";
 import {
   AUTH_ERROR,
+  CLEAR_PROFILE,
   LOGIN_FAILED,
   LOGIN_SUCCESS,
   LOG_OUT,
@@ -88,5 +89,9 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   dispatch({
     type: LOG_OUT,
+  });
+
+  dispatch({
+    type: CLEAR_PROFILE,
   });
 };

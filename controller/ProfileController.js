@@ -11,8 +11,9 @@ module.exports = {
       }).populate("user", ["name", "avatar"]);
 
       if (!FindUserProfile) {
-        res.status(400).send({ Message: "User Profile Not Found !" });
+        return res.status(400).send({ Message: "User Profile Not Found !" });
       }
+      return res.status(200).send(FindUserProfile);
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +35,7 @@ module.exports = {
   UpdateOrCreateProfile: async (req, res) => {
     const querySchema = Joi.object({
       status: Joi.string().required(),
+      company: Joi.string(),
       skills: Joi.string().required(),
       website: Joi.string(),
       location: Joi.string(),
@@ -49,7 +51,7 @@ module.exports = {
 
     const result = querySchema.validate(req.body);
     if (querySchema.validate(req.body).error) {
-      res.status(400).send(result.error);
+      return res.status(400).send(result.error.details[0].message);
     }
 
     const {
@@ -109,7 +111,9 @@ module.exports = {
       profile = await new Profile(ProfileData);
       await profile.save();
 
-      return res.status(200).send("data inserted");
+      return res
+        .status(200)
+        .json({ messgae: "Profile Created Successfully", ProfileData });
     } catch (error) {
       console.log(error);
       return res.status(500).send("server error");

@@ -13,6 +13,9 @@
     padding: 0;
 }
 
+.green-color {
+    color: #28a745;
+}
 
 body {
     font-family: 'Raleway', sans-serif;
@@ -195,7 +198,7 @@ img {
     color: #fff;
 }
 
-.dashboard_style{
+.dashboard_style {
     margin-top: 7rem;
     margin-left: 3rem;
 }
@@ -510,6 +513,13 @@ button {
     color: #aaa;
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
+}
+
+.my_con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 /* Mobile Styles */

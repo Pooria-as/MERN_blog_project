@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { logout } from "../../../store/actions/Auth";
 import { FaSignOutAlt } from "react-icons/fa";
 
-
 const NavBar = ({ logout, loading, IsAuthenticate }) => {
   const guest = (
     <ul>
@@ -23,13 +22,12 @@ const NavBar = ({ logout, loading, IsAuthenticate }) => {
   const auth = (
     <ul>
       <li>
-        <a href="/">Developers</a>
+        <Link to="/dashboard">Dashborad </Link>
       </li>
       <li>
         <Link onClick={logout} to="/login">
-          
-    <FaSignOutAlt/>
-          
+          <FaSignOutAlt />
+          Logout
         </Link>
       </li>
     </ul>
